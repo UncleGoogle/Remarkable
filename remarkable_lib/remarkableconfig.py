@@ -7,10 +7,10 @@
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
-# 
+#
 # The above copyright notice and this permission notice shall be included in
 # all copies or substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -57,12 +57,17 @@ def get_data_path():
 
     This path is by default <remarkable_lib_path>/../data/ in trunk
     and /usr/share/remarkable in an installed version but this path
-    is specified at installation time.
+    is specified at installation time. For not installed version there is
+    just <remarkable_lib_path>/../data/
     """
 
-    # Get pathname absolute or relative.
-    path = os.path.join(
-        os.path.dirname(__file__), __remarkable_data_directory__)
+    if os.path.exists(__remarkable_data_directory__):
+        # Get pathname absolute or relative.
+        path = os.path.join(
+            os.path.dirname(__file__), __remarkable_data_directory__)
+    else:
+        path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data/')
+
 
     abs_data_path = os.path.abspath(path)
     if not os.path.exists(abs_data_path):
